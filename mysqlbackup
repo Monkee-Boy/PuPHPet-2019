@@ -1,0 +1,21 @@
+#!/bin/bash
+
+cd /var/www/.backups
+
+# Get list of domains from mysql and save all to files.
+
+# Skip these databases because they are not need to backup.
+DBSKIP=("information_schema" "mysql")
+
+databases=$(mysql --defaults-extra-file=/home/vagrant/mysql.conf -sNr -e "show databases;")
+mapfile -t arr <<< "$databases"
+
+for database in $databases; do
+        if [ $database != "information_schema" ] && [ $database != "mysql" ] && [ $database != "performance_schema" ]; then
+                file="$database.sql"
+                echo "Dumping: $file"
+                mysqldump --defaults-extra-file=/home/vagrant/mysql.conf --opt --skip-dump-date $database > "/var/www/.backups/$file"
+        fi
+done
+
+echo "Done!"
