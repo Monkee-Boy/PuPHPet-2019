@@ -279,7 +279,7 @@ drush:
     install: '0'
     version: 8.0.5
 ruby:
-    install: '1'
+    install: '0'
     versions:
         rv_n81ar15vn5rq:
             default: '1'
@@ -355,7 +355,7 @@ sqlite:
     install: '1'
     databases: {  }
 mailhog:
-    install: '1'
+    install: '0'
     settings:
         smtp_ip: 0.0.0.0
         smtp_port: 1025
